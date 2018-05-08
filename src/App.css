@@ -1,0 +1,106 @@
+.app {
+  text-align: center;
+  font: 16px/1.2 'Open Sans', sans-serif;
+}
+
+.app-header {
+  background-color: #ADD8E6;
+  height: 80px;
+  padding: 20px;
+  color: white;
+  line-height: 2.5em;
+}
+
+.app-title {
+  font-size: 1.5em;
+}
+
+.timeslot-grid {
+  margin: 0 auto;
+  position: relative;
+}
+
+.timeslot {
+  text-align: left;
+  padding: 10px;
+  margin: 0;
+  font-weight: 200;
+}
+
+.hours {
+  border-top: 1px solid #E8E8E8;
+}
+
+.hours:first-of-type {
+  border: none;
+}
+
+.full-time {
+ font-size: 0.75rem;
+}
+
+.event-calendar {
+  position: relative;
+  border-top: 1px solid #ADD8E6;
+  border-bottom: 1px solid #ADD8E6;
+}
+
+.event {
+  position: absolute;
+  background-color: #E2ECF5;
+  border-left: 3px solid #6E9ECF;
+  font-size: 0.875rem;
+  text-align: left;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 200px;
+}
+
+.event-title {
+  margin: 0;
+  padding: 0;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-btn {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 0;
+  right: 6px;
+}
+
+.remove-btn.fa-times {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #6E9ECF;
+}
+
+.add-item-block {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.fa-plus {
+  color: #6E9ECF;
+}
+
+.add-event-title {
+  margin-right: 30px;
+}
+
+.copyright {
+  font-size: 0.7rem;
+  margin: 0;
+  padding: 20px 0;
+}
