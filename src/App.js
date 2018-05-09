@@ -1,25 +1,37 @@
 import React, {Component} from 'react';
-import './App.css';
+import './styles/App.css';
 import moment from 'moment';
+import EventItem from './components/Event/Event';
 
 class App extends Component {
-    removeEvent = () => {
-        console.log('remove event');
+    componentDidMount() {
+        this.props.getEventList();
+    }
+
+    onChangeStart = (event) => {
+        this.props.changeStart(event.target.value);
+    };
+
+    onChangeEnd = (event) => {
+        this.props.changeEnd(event.target.value);
+    };
+
+    onChangeTitle = (event) => {
+        this.props.changeTitle(event.target.value);
+    };
+
+    saveEvent = (event) => {
+        this.props.saveEvent(this.props.newEvent);
+        event.preventDefault();
     };
 
     render() {
-        this.timeslots = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '5:00'];
+        const timeslots = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '5:00'];
 
         const today = moment().format('dddd, D MMMM YYYY');
         const startTime = 8;
         const endTime = 17;
         const allTimeslotsMin = (endTime - startTime) * 60;
-
-        this.events = [
-            {start: 0, duration: 20, title: 'Exercise in training gym'},
-            {start: 25, duration: 15, title: 'Travel to work'},
-            {start: 80, duration: 10, title: 'Plan today'}
-        ];
 
         return (
             <div className="app">
@@ -27,32 +39,35 @@ class App extends Component {
                     <h1 className="app-title">{today}</h1>
                 </header>
 
-                <div className="control-panel">
-                    <form className="add-item-block">
+                {this.props.isCreateEventVisible && <div className="control-panel">
+                    <form className="add-event-block" name="add-event" onSubmit={this.saveEvent}>
                         <p className="title">Create an event (available time 08:00 to 16:59)</p>
 
                         <div className="row">
                             <p>Start time</p>
-                            <input className="start-time" type="time" value="08:00" required/>
+                            <input className="start-time" type="time" defaultValue="08:00" onChange={this.onChangeStart}/>
                         </div>
 
                         <div className="row">
                             <p>End time</p>
-                            <input className="event-duration" type="time"/>
+                            <input className="event-duration" type="time" onChange={this.onChangeEnd}/>
                         </div>
 
-                        <input className="add-event-title" type="text" placeholder="Enter the event title" required
-                               pattern="\w+"/>
+                        <input className="add-event-title" type="text" placeholder="Enter the event title"
+                               pattern="\w+" onChange={this.onChangeTitle} />
 
-                        <button className="btn add-event-btn">Add event</button>
+                        <button className="btn add-event-btn" type="submit" onClick={this.saveEvent}>Add event</button>
+
+                        <button className="btn close-btn">
+                            <i className="fa fa-times"/>
+                        </button>
                     </form>
-                </div>
+                </div>}
 
 
                 <div className="event-calendar">
-
                     <div className="timeslot-grid">
-                        {this.timeslots.map((elem, i, arr) => {
+                        {timeslots.map((elem, i, arr) => {
                             const hours = i % 2 === 0 ? "hours" : "full-time";
 
                             return (
@@ -63,25 +78,11 @@ class App extends Component {
                         })}
                     </div>
 
-                    {this.events.map(event => {
-                        const top = event.start * 100 / allTimeslotsMin;
-                        const left = 60;
-                        const height = event.duration * 100 / allTimeslotsMin;
-
-                        const title = event.title.length > 25 ? `${event.title.slice(0, 10)}...` : event.title;
-
-                        return (
-                            <div className="event" style={{top: `${top}%`, left: `${left}px`, height: `${height}%`}}>
-                                <p className="event-title">{title}</p>
-
-                                <button className="btn remove-btn" onClick={this.removeEvent}>
-                                    <i className="fa fa-times"/>
-                                </button>
-                            </div>
-                        );
+                    {this.props.eventList.map(event => {
+                        return <EventItem allTimeslotsMin={allTimeslotsMin} event={event} removeEvent={this.props.removeEvent}/>
                     })}
 
-                    <button className="add-btn" title=" event">
+                    <button className="add-btn" title="Create event" onClick={this.props.openCreateEventBlock}>
                         <i className="fa fa-plus"/>
                     </button>
                 </div>
