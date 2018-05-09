@@ -51,7 +51,7 @@
   border-left: 3px solid #6E9ECF;
   font-size: 0.875rem;
   text-align: left;
-  padding: 0 15px;
+  padding: 0 25px 0 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -61,6 +61,7 @@
 .event-title {
   margin: 0;
   padding: 0;
+  color: #6E9ECF;
 }
 
 .btn {
@@ -73,11 +74,11 @@
   width: 10px;
   height: 10px;
   position: absolute;
-  top: 0;
-  right: 6px;
+  top: 2px;
+  right: 2px;
 }
 
-.remove-btn.fa-times {
+.remove-btn .fa-times {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -85,22 +86,84 @@
   color: #6E9ECF;
 }
 
-.add-item-block {
+.control-panel {
   display: flex;
   justify-content: center;
+}
+
+.add-item-block {
+  display: flex;
+  flex-direction: column;
   margin: 20px 0;
 }
 
-.fa-plus {
-  color: #6E9ECF;
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .add-event-title {
-  margin-right: 30px;
+  padding: 10px;
+  color: #6E9ECF;
+  font-size: 1rem;
 }
+
+.add-event-title::placeholder {
+  color: #DEDEDE;
+}
+
+.add-event-btn {
+  background-color: #ADD8E6;
+  color: #fff;
+  padding: 15px;
+  margin: 20px 0;
+  font-size: 1.3rem;
+}
+
+.add-event-btn:hover {
+  background-color: #A2CEDC;
+}
+
+.add-event-btn:active {
+  background-color: #8FBBC9;
+}
+
+.title {
+  color: #ADD8E6;
+  font-size: 1.2rem;
+}
+
+.add-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #D6EEFF;
+  color: #6E9ECF;
+  border: 1px solid #6E9ECF;
+  padding: 7px 10px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.start-time,
+.end-time {
+  height: 20px;
+}
+
+
+
+
+
+
+
+
+
 
 .copyright {
   font-size: 0.7rem;
   margin: 0;
   padding: 20px 0;
 }
+
