@@ -15,9 +15,10 @@ app.use('', function(req, res, next) {
     next();
 });
 
-
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/eventCalendar', function (err) {
+const mongoEndpoint = 'mongodb://viktoriia.borysovska:123456789@ds119110.mlab.com:19110/eventcalendardb';
+
+mongoose.connect(mongoEndpoint, function (err) {
     if (err) throw err;
 
     console.log('Successfully connected to database!');
@@ -31,7 +32,7 @@ const eventCalendarSchema = new Schema({
     start: Number
 });
 
-const EventCalendarModel = mongoose.model('EventCalendar', eventCalendarSchema);
+const EventCalendarModel = mongoose.model('EventCalendar', eventCalendarSchema, 'eventscollection');
 
 //save event
 app.post('/event', (req, res) => {
@@ -81,7 +82,6 @@ app.delete('/event', (req, res) => {
         res.status(400);
     }
 });
-
 
 //get all events in json format
 app.get('/eventlist', (req, res) => {

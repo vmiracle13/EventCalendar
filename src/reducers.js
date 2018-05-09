@@ -11,7 +11,7 @@ import {
 const initialState = {
     eventList: [],
     isCreateEventVisible: false,
-    newEvent: {start: '08:00', end: '08:30'},
+    newEvent: {start: '08:00', end: '08:01'},
 };
 
 export default (state = initialState, action) => {

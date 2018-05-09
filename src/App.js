@@ -50,7 +50,7 @@ class App extends Component {
 
                         <div className="row">
                             <p>End time</p>
-                            <input className="event-duration" type="time" onChange={this.onChangeEnd}/>
+                            <input className="event-duration" type="time" defaultValue="08:01" onChange={this.onChangeEnd}/>
                         </div>
 
                         <input className="add-event-title" type="text" placeholder="Enter the event title"
@@ -79,7 +79,9 @@ class App extends Component {
                     </div>
 
                     {this.props.eventList.map(event => {
-                        return <EventItem allTimeslotsMin={allTimeslotsMin} event={event} removeEvent={this.props.removeEvent}/>
+                        if (Object.keys(event).length !== 0) {
+                            return <EventItem allTimeslotsMin={allTimeslotsMin} event={event} removeEvent={this.props.removeEvent}/>
+                        }
                     })}
 
                     <button className="add-btn" title="Create event" onClick={this.props.openCreateEventBlock}>
