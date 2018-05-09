@@ -43,7 +43,7 @@
   position: relative;
   border-top: 1px solid #ADD8E6;
   border-bottom: 1px solid #ADD8E6;
-  margin: 0 calc((100% - 1100px) / 2);
+  margin: 0 calc((100% - 1100px) / 2) 50px;
 }
 
 .btn {
@@ -125,6 +125,18 @@
   top: 0;
   right: 0;
   color: #6E9ECF;
+}
+
+.get-all-events {
+  background-color: #ADD8E6;
+  color: #fff;
+  padding: 15px 70px;
+  margin: 20px 0;
+  font-size: 1.3rem
+}
+
+.all-events-title {
+  color: #ADD8E6;
 }
 
 .copyright {

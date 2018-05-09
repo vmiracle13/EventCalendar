@@ -1,7 +1,28 @@
-import {createStore, applyMiddleware} from 'redux';
-import ReduxThunk from 'redux-thunk';
-import eventApp from './reducers';
+import {
+    createStore,
+    applyMiddleware,
+    compose
+} from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import thunk from 'redux-thunk';
+import rootReducer, { initialState } from './reducers';
 
-const store = createStore(eventApp, applyMiddleware(ReduxThunk));
+const enhancers = [];
 
-export default store;
+export default function storeCreate(history) {
+    const middleware = [
+        thunk,
+        routerMiddleware(history)
+    ];
+
+    const composedEnhancers = compose(
+        applyMiddleware(...middleware),
+        ...enhancers
+    );
+
+    return createStore(
+        rootReducer,
+        initialState,
+        composedEnhancers
+    );
+};

@@ -7,11 +7,13 @@ export default class EventItem extends Component {
     };
 
     render() {
-        const top = this.props.event.start * 100 / this.props.allTimeslotsMin;
-        const left = 60;
-        const height = this.props.event.duration * 100 / this.props.allTimeslotsMin;
+        const {event, allTimeslotsMin} = this.props;
 
-        const title = this.props.event.title.length > 25 ? `${this.props.event.title.slice(0, 10)}...` : this.props.event.title;
+        const top = event.start * 100 / allTimeslotsMin;
+        const left = 60;
+        const height = event.duration * 100 / allTimeslotsMin;
+
+        const title = event.title.length > 25 ? `${event.title.slice(0, 10)}...` : event.title;
 
         return (
             <div className="event" style={{top: `${top}%`, left: `${left}px`, height: `${height}%`}}>

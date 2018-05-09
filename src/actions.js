@@ -1,5 +1,5 @@
 import moment from 'moment';
-
+import endpoint from './endpoint';
 import {
     OPEN_CREATE_EVENT_BLOCK,
     CLOSE_CREATE_EVENT_BLOCK,
@@ -8,9 +8,8 @@ import {
     CHANGE_END,
     CHANGE_TITLE,
     SAVE_EVENT,
+    GET_ALL_EVENT_LIST
 } from './constants';
-
-import endpoint from './endpoint';
 
 export const openCreateEventBlock = () => {
     return {
@@ -113,9 +112,24 @@ export const saveEvent = (event) => (dispatch) => {
         });
 };
 
+export const getAllEventList = () => (dispatch) => {
+    fetch(`${endpoint}/all`)
+        .then((response) => {
+            if (response.status !== 200) {
+                throw Error(response.statusText);
+            }
+
+            return response.json();
+        })
+        .then((data) => {
+            dispatch({type: GET_ALL_EVENT_LIST, payload: data});
+        })
+        .catch(err => console.log(err));
+};
+
 function getDiff(a, b) {
-    const start = moment(a,'HH:mm');
-    const finish = moment(b,'HH:mm');
+    const start = moment(a, 'HH:mm');
+    const finish = moment(b, 'HH:mm');
     const diff = moment.duration(start - finish, "minutes");
-    return (diff.toString().match( /\d+/i ) / 1000);
+    return (diff.toString().match(/\d+/i) / 1000);
 }

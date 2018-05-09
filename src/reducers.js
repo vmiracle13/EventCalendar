@@ -5,10 +5,11 @@ import {
     CHANGE_START,
     CHANGE_END,
     CHANGE_TITLE,
-    SAVE_EVENT
+    SAVE_EVENT,
+    GET_ALL_EVENT_LIST
 } from './constants';
 
-const initialState = {
+export const initialState = {
     eventList: [],
     isCreateEventVisible: false,
     newEvent: {start: '08:00', end: '08:01'},
@@ -72,6 +73,13 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 newEvent: {}
+            }
+        }
+
+        case GET_ALL_EVENT_LIST: {
+            return {
+                ...state,
+                allEventList: action.payload
             }
         }
 

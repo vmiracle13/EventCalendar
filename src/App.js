@@ -1,7 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './styles/App.css';
 import moment from 'moment';
 import EventItem from './components/Event/Event';
+
+const timeslots = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '5:00'];
+
+const today = moment().format('dddd, D MMMM YYYY');
+const startTime = 8;
+const endTime = 17;
+const allTimeslotsMin = (endTime - startTime) * 60;
 
 class App extends Component {
     componentDidMount() {
@@ -26,12 +33,14 @@ class App extends Component {
     };
 
     render() {
-        const timeslots = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '5:00'];
-
-        const today = moment().format('dddd, D MMMM YYYY');
-        const startTime = 8;
-        const endTime = 17;
-        const allTimeslotsMin = (endTime - startTime) * 60;
+        const {
+            eventList,
+            isCreateEventVisible,
+            removeEvent,
+            openCreateEventBlock,
+            allEventList,
+            getAllEventList
+        } = this.props;
 
         return (
             <div className="app">
@@ -39,8 +48,8 @@ class App extends Component {
                     <h1 className="app-title">{today}</h1>
                 </header>
 
-                {this.props.isCreateEventVisible && <div className="control-panel">
-                    <form className="add-event-block" name="add-event" onSubmit={this.saveEvent}>
+                {isCreateEventVisible && <div className="control-panel">
+                    <form className="add-event-block" name="add-event">
                         <p className="title">Create an event (available time 08:00 to 16:59)</p>
 
                         <div className="row">
@@ -78,16 +87,28 @@ class App extends Component {
                         })}
                     </div>
 
-                    {this.props.eventList.map(event => {
+                    {(eventList || []).map(event => {
                         if (Object.keys(event).length !== 0) {
-                            return <EventItem allTimeslotsMin={allTimeslotsMin} event={event} removeEvent={this.props.removeEvent}/>
+                            return <EventItem
+                                allTimeslotsMin={allTimeslotsMin}
+                                event={event}
+                                removeEvent={removeEvent}
+                            />
                         }
                     })}
 
-                    <button className="add-btn" title="Create event" onClick={this.props.openCreateEventBlock}>
+                    <button className="add-btn" title="Create event" onClick={openCreateEventBlock}>
                         <i className="fa fa-plus"/>
                     </button>
                 </div>
+
+                <button className="btn get-all-events" onClick={getAllEventList}>Get all events</button>
+                {allEventList &&
+                    <div>
+                        <p className="all-events-title">The retrieved events from database are the following:</p>
+                        <p>{allEventList}</p>
+                    </div>
+                }
 
                 <footer className="footer">
                     <p className="copyright">&copy; 2018 VB Inc. All Rights Reserved.</p>

@@ -5,3 +5,4 @@ export const CHANGE_START = 'CHANGE_START';
 export const CHANGE_END = 'CHANGE_END';
 export const CHANGE_TITLE = 'CHANGE_TITLE';
 export const SAVE_EVENT = 'SAVE_EVENT';
+export const GET_ALL_EVENT_LIST = 'GET_ALL_EVENT_LIST';

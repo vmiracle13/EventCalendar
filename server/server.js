@@ -3,9 +3,7 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 
 const app = express();
-
 const port = 3030;
-
 app.use(bodyParser());
 
 app.use('', function(req, res, next) {
@@ -45,7 +43,7 @@ app.post('/event', (req, res) => {
         newEventInstance.save(function(err) {
             if (err) throw err;
 
-            res.status(200);
+            res.status(200).send();
         });
     }
     catch(err) {
@@ -72,7 +70,7 @@ app.delete('/event', (req, res) => {
                         throw err;
                     }
 
-                    res.status(200);
+                    res.status(200).send();
                 });
             });
         });
@@ -93,7 +91,7 @@ app.get('/eventlist', (req, res) => {
                 throw err;
             }
 
-            res.json(events);
+            res.json(formattedResult(events));
         });
     }
     catch(err) {
@@ -102,6 +100,23 @@ app.get('/eventlist', (req, res) => {
     }
 });
 
+app.get('/all', (req, res) => {
+    try {
+        EventCalendarModel.find({}, function(err, events) {
+            if (err) {
+                throw err;
+            }
+
+            res.json(JSON.stringify(formattedResult(events)));
+        });
+    }
+    catch(err) {
+        console.log("The events can not be retrieved. Please, try later.");
+        res.status(400);
+    }
+});
+
+
 app.listen(port, (err) => {
     if (err) {
         console.log(err);
@@ -109,3 +124,13 @@ app.listen(port, (err) => {
 
     console.log(`The server is hosted on localhost:${port}`);
 });
+
+const formattedResult = (arr) => {
+    return arr.map( item => {
+        return {
+            title: item.title,
+            start: item.start,
+            duration: item.duration
+        }
+    });
+};
