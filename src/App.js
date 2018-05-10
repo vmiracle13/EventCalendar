@@ -46,6 +46,12 @@ class App extends Component {
             <div className="app">
                 <header className="app-header">
                     <h1 className="app-title">{today}</h1>
+
+                    {this.props.context.isAuthenticated() &&
+                    <button className="btn logout-btn" onClick={this.props.context.logout.bind(this)}>
+                        Log out
+                    </button>
+                    }
                 </header>
 
                 {isCreateEventVisible && <div className="control-panel">

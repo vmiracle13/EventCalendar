@@ -1,0 +1,15 @@
+.logout {
+    background-color: #ADD8E6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.message {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    margin: 0;
+    color: #6E9ECF;
+}

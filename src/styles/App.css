@@ -9,6 +9,7 @@
   padding: 20px;
   color: white;
   line-height: 2.5em;
+  position: relative;
 }
 
 .app-title {
@@ -137,6 +138,17 @@
 
 .all-events-title {
   color: #ADD8E6;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #6E9ECF;
+  color: #fff;
+  font-size: 1.05em;
+  padding: 10px 21px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .copyright {

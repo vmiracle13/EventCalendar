@@ -19,7 +19,7 @@ class Main extends Component {
 
         return (
             <div className="main">
-                <AppConnector />
+                <AppConnector context={this.context.auth}/>
             </div>
         );
     }
