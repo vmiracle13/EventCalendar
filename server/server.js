@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
+const atob = require('atob');
 
 const app = express();
 const port = 3030;
@@ -27,7 +28,8 @@ const eventCalendarSchema = new Schema({
     title: String,
     date: String,
     duration: Number,
-    start: Number
+    start: Number,
+    user: String
 });
 
 const EventCalendarModel = mongoose.model('EventCalendar', eventCalendarSchema, 'eventscollection');
@@ -54,12 +56,11 @@ app.post('/event', (req, res) => {
 
 //delete event
 app.delete('/event', (req, res) => {
-    const id = req.url.split('/')[2];
-
-    const newEvent = req.body;
+    const today = moment().format('DD-MM-YYYY');
+    const newEvent = {...req.body, date: today};
 
     try {
-        EventCalendarModel.find(newEvent, function(err, events) {
+        EventCalendarModel.find({...newEvent}, function(err, events) {
             if (err) {
                 throw err;
             }
@@ -82,7 +83,7 @@ app.delete('/event', (req, res) => {
 });
 
 //get all events in json format
-app.get('/eventlist', (req, res) => {
+app.post('/eventlist', (req, res) => {
     const today = moment().format('DD-MM-YYYY');
 
     try {
@@ -100,9 +101,11 @@ app.get('/eventlist', (req, res) => {
     }
 });
 
-app.get('/all', (req, res) => {
+app.post('/all', (req, res) => {
+    const today = moment().format('DD-MM-YYYY');
+
     try {
-        EventCalendarModel.find({}, function(err, events) {
+        EventCalendarModel.find({...req.body, date: today}, function(err, events) {
             if (err) {
                 throw err;
             }

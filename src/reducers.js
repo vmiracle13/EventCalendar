@@ -20,14 +20,16 @@ export default (state = initialState, action) => {
         case OPEN_CREATE_EVENT_BLOCK: {
             return {
                 ...state,
-                isCreateEventVisible: true
+                isCreateEventVisible: true,
+                allEventList: null
             }
         }
 
         case CLOSE_CREATE_EVENT_BLOCK: {
             return {
                 ...state,
-                isCreateEventVisible: false
+                isCreateEventVisible: false,
+                allEventList: null
             }
         }
 
@@ -35,13 +37,15 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 eventList: action.payload,
-                isCreateEventVisible: false
+                isCreateEventVisible: false,
+                allEventList: null
             }
         }
 
         case CHANGE_START: {
             return {
                 ...state,
+                allEventList: null,
                 newEvent: {
                     ...state.newEvent,
                     start: action.payload
@@ -52,6 +56,7 @@ export default (state = initialState, action) => {
         case CHANGE_END: {
             return {
                 ...state,
+                allEventList: null,
                 newEvent: {
                     ...state.newEvent,
                     end: action.payload
@@ -62,6 +67,7 @@ export default (state = initialState, action) => {
         case CHANGE_TITLE: {
             return {
                 ...state,
+                allEventList: null,
                 newEvent: {
                     ...state.newEvent,
                     title: action.payload
@@ -72,6 +78,7 @@ export default (state = initialState, action) => {
         case SAVE_EVENT: {
             return {
                 ...state,
+                allEventList: null,
                 newEvent: {}
             }
         }

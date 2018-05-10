@@ -24,7 +24,14 @@ export const closeCreateEventBlock = () => {
 };
 
 export const getEventList = () => (dispatch) => {
-    fetch(`${endpoint}/eventlist`)
+    fetch(`${endpoint}/eventlist`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({ user: getUserData() }),
+    })
         .then((response) => {
             if (response.status !== 200) {
                 throw Error(response.statusText);
@@ -41,7 +48,7 @@ export const getEventList = () => (dispatch) => {
 export const removeEvent = (event) => (dispatch) => {
     fetch(`${endpoint}/event`, {
         method: 'DELETE',
-        body: JSON.stringify(event),
+        body: JSON.stringify({...event, user: getUserData()}),
         headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -97,7 +104,7 @@ export const saveEvent = (event) => (dispatch) => {
             'Content-Type': 'application/json',
             Accept: 'application/json',
         },
-        body: JSON.stringify(eventItem),
+        body: JSON.stringify({...eventItem, user: getUserData()}),
     })
         .then((response) => {
             if (response.status !== 200) {
@@ -113,7 +120,14 @@ export const saveEvent = (event) => (dispatch) => {
 };
 
 export const getAllEventList = () => (dispatch) => {
-    fetch(`${endpoint}/all`)
+    fetch(`${endpoint}/all`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+        body: JSON.stringify({user: getUserData()}),
+    })
         .then((response) => {
             if (response.status !== 200) {
                 throw Error(response.statusText);
@@ -127,9 +141,15 @@ export const getAllEventList = () => (dispatch) => {
         .catch(err => console.log(err));
 };
 
-function getDiff(a, b) {
+const getDiff = (a, b) => {
     const start = moment(a, 'HH:mm');
     const finish = moment(b, 'HH:mm');
     const diff = moment.duration(start - finish, "minutes");
     return (diff.toString().match(/\d+/i) / 1000);
-}
+};
+
+const getUserData = () => {
+    const token = localStorage.getItem('id_token');
+    const userData = atob(token.split('.')[1]);
+    return JSON.parse(userData).sub.slice(6);
+};
