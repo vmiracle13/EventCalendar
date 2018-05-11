@@ -8,14 +8,18 @@ import { openCreateEventBlock,
     changeEnd,
     changeTitle,
     saveEvent,
-    getAllEventList
+    getAllEventList,
+    incorrectDuration,
+    isEmptyTitle
 } from './actions';
 
 const mapStateToProps = state => ({
     isCreateEventVisible: state.isCreateEventVisible,
     eventList: state.eventList,
     newEvent: state.newEvent,
-    allEventList: state.allEventList
+    allEventList: state.allEventList,
+    incorrectDurationInterval: state.incorrectDurationInterval,
+    emptyTitle: state.emptyTitle
 });
 
 const mapDispatchToProps = {
@@ -27,7 +31,9 @@ const mapDispatchToProps = {
     changeEnd,
     changeTitle,
     saveEvent,
-    getAllEventList
+    getAllEventList,
+    incorrectDuration,
+    isEmptyTitle
 };
 
 const AppConnector = connect(mapStateToProps, mapDispatchToProps)(App);

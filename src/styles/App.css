@@ -44,7 +44,8 @@
   position: relative;
   border-top: 1px solid #ADD8E6;
   border-bottom: 1px solid #ADD8E6;
-  margin: 0 calc((100% - 1100px) / 2) 50px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .btn {
@@ -149,6 +150,13 @@
   font-size: 1.05em;
   padding: 10px 21px;
   font-family: 'Open Sans', sans-serif;
+}
+
+.error {
+  margin: 3px 0 0;
+  padding: 10px 15px;
+  background-color: red;
+  color: #fff;
 }
 
 .copyright {

@@ -6,7 +6,9 @@ import {
     CHANGE_END,
     CHANGE_TITLE,
     SAVE_EVENT,
-    GET_ALL_EVENT_LIST
+    GET_ALL_EVENT_LIST,
+    IS_INCORRECT_DURATION,
+    IS_EMPTY_TITLE
 } from './constants';
 
 export const initialState = {
@@ -79,7 +81,9 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 allEventList: null,
-                newEvent: {}
+                newEvent: {},
+                incorrectDurationInterval: false,
+                emptyTitle: false
             }
         }
 
@@ -87,6 +91,22 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 allEventList: action.payload
+            }
+        }
+
+        case IS_INCORRECT_DURATION: {
+            return {
+                ...state,
+                incorrectDurationInterval: true,
+                isCreateEventVisible: true
+            }
+        }
+
+        case IS_EMPTY_TITLE: {
+            return {
+                ...state,
+                emptyTitle: true,
+                isCreateEventVisible: true
             }
         }
 

@@ -28,9 +28,21 @@ class App extends Component {
     };
 
     saveEvent = (event) => {
-        this.props.saveEvent(this.props.newEvent);
-        event.preventDefault();
+        if (this.validateTitle(this.props.newEvent.title)) {
+            if (this.validateTime(this.props.newEvent.start, this.props.newEvent.end)) {
+                this.props.saveEvent(this.props.newEvent);
+                event.preventDefault();
+            } else {
+                this.props.incorrectDuration();
+            }
+        } else {
+            this.props.isEmptyTitle();
+        }
     };
+
+    validateTitle = (value) => !!value && /\w+/ig.test(value);
+
+    validateTime = (start, end) => end > start && end < '17:00';
 
     render() {
         const {
@@ -39,7 +51,9 @@ class App extends Component {
             removeEvent,
             openCreateEventBlock,
             allEventList,
-            getAllEventList
+            getAllEventList,
+            incorrectDurationInterval,
+            emptyTitle
         } = this.props;
 
         return (
@@ -58,27 +72,48 @@ class App extends Component {
                     <form className="add-event-block" name="add-event">
                         <p className="title">Create an event (available time 08:00 to 16:59)</p>
 
-                        <div className="row">
-                            <p>Start time</p>
-                            <input className="start-time" type="time" defaultValue="08:00" onChange={this.onChangeStart}/>
+                        <div className="row-wrapper">
+                            <div className="row">
+                                <p>Start time</p>
+                                <input className="start-time"
+                                       type="time"
+                                       defaultValue="08:00"
+                                       onChange={this.onChangeStart}
+                                />
+                            </div>
+
+                            {incorrectDurationInterval && <p className="error">Incorrect start time</p>}
                         </div>
 
-                        <div className="row">
-                            <p>End time</p>
-                            <input className="event-duration" type="time" defaultValue="08:01" onChange={this.onChangeEnd}/>
+                        <div className="row-wrapper">
+                            <div className="row">
+                                <p>End time</p>
+                                <input
+                                    className="event-duration"
+                                    type="time"
+                                    defaultValue="08:01"
+                                    onChange={this.onChangeEnd}
+                                />
+                            </div>
+
+                            {incorrectDurationInterval && <p className="error">Incorrect end time</p>}
                         </div>
 
-                        <input className="add-event-title" type="text" placeholder="Enter the event title"
-                               pattern="\w+" onChange={this.onChangeTitle} />
+                        <input
+                            className="add-event-title"
+                            type="text"
+                            placeholder="Enter the event title"
+                            onChange={this.onChangeTitle} />
 
-                        <button className="btn add-event-btn" type="submit" onClick={this.saveEvent}>Add event</button>
+                        {emptyTitle && <p className="error">Empty title</p>}
+
+                        <button className="btn add-event-btn" type="button" onClick={this.saveEvent}>Add event</button>
 
                         <button className="btn close-btn">
                             <i className="fa fa-times"/>
                         </button>
                     </form>
                 </div>}
-
 
                 <div className="event-calendar">
                     <div className="timeslot-grid">

@@ -8,7 +8,9 @@ import {
     CHANGE_END,
     CHANGE_TITLE,
     SAVE_EVENT,
-    GET_ALL_EVENT_LIST
+    GET_ALL_EVENT_LIST,
+    IS_INCORRECT_DURATION,
+    IS_EMPTY_TITLE
 } from './constants';
 
 export const openCreateEventBlock = () => {
@@ -140,6 +142,10 @@ export const getAllEventList = () => (dispatch) => {
         })
         .catch(err => console.log(err));
 };
+
+export const incorrectDuration = () => ({type: IS_INCORRECT_DURATION});
+
+export const isEmptyTitle = () => ({type: IS_EMPTY_TITLE});
 
 const getDiff = (a, b) => {
     const start = moment(a, 'HH:mm');
