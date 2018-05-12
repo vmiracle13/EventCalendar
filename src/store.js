@@ -5,7 +5,7 @@ import {
 } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import thunk from 'redux-thunk';
-import rootReducer, { initialState } from './reducers';
+import rootReducer, { initialState } from './components/EventCalendar/reducers/reducers';
 
 const enhancers = [];
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Type from 'prop-types';
 import { connect } from 'react-redux';
-import EventCalendarConnector from './../connector';
+import EventCalendarConnector from '../components/EventCalendar/connector';
 
 class App extends Component {
     componentWillMount() {

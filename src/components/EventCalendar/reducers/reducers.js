@@ -9,9 +9,9 @@ import {
     GET_ALL_EVENT_LIST,
     IS_INCORRECT_DURATION,
     IS_EMPTY_TITLE
-} from './constants';
+} from '../constants/constants';
 
-import generateEventGrid from './selectors';
+import generateEventGrid from '../selectors/selectors';
 
 export const initialState = {
     eventList: [],

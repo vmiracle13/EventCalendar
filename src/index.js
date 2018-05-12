@@ -5,9 +5,9 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route } from 'react-router-dom';
 import Type from 'prop-types';
 import createHistory from 'history/createBrowserHistory';
-import Callback from './components/Callback/Callback';
-import Main from './Main/Main';
 import createStore from './store';
+import Callback from './components/Callback/Callback';
+import App from './App/App';
 import Auth from './services/Auth';
 import LogoutPage from './components/LogoutPage/LogoutPage';
 import './styles/index.css';
@@ -39,7 +39,7 @@ ReactDOM.render(
         <ConnectedRouter history={history}>
             <ContextProvider>
                 <div>
-                    <Route path='/' component={Main} />
+                    <Route path='/' component={App} />
                     <Route exact path='/callback' component={Callback} />
                     <Route path='/logout' component={LogoutPage} />
                 </div>

@@ -11,7 +11,7 @@ import { openCreateEventBlock,
     getAllEventList,
     incorrectDuration,
     isEmptyTitle
-} from './actions';
+} from './actions/actions';
 
 const mapStateToProps = state => ({
     isCreateEventVisible: state.isCreateEventVisible,

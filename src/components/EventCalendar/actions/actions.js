@@ -1,5 +1,5 @@
 import moment from 'moment';
-import endpoint from './endpoint';
+import endpoint from '../../../endpoint';
 import {
     OPEN_CREATE_EVENT_BLOCK,
     CLOSE_CREATE_EVENT_BLOCK,
@@ -11,7 +11,7 @@ import {
     GET_ALL_EVENT_LIST,
     IS_INCORRECT_DURATION,
     IS_EMPTY_TITLE
-} from './constants';
+} from '../constants/constants';
 
 export const openCreateEventBlock = () => {
     return {
@@ -52,12 +52,10 @@ export const isEmptyTitle = () => ({type: IS_EMPTY_TITLE});
 
 export const getEventList = () => (dispatch) => {
     fetch(`${endpoint}/eventlist`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify({ user: getUserData() }),
+            'Authorization': getUserData(),
+        }
     })
         .then((response) => {
             if (response.status !== 200) {
@@ -80,7 +78,6 @@ export const saveEvent = (event) => (dispatch) => {
         start: `${today}T${event.start}`,
         end: `${today}T${event.end}`
     };
-
 
     fetch(`${endpoint}/event`, {
         method: 'POST',
@@ -127,12 +124,10 @@ export const removeEvent = (event) => (dispatch) => {
 
 export const getAllEventList = () => (dispatch) => {
     fetch(`${endpoint}/all`, {
-        method: 'POST',
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-        },
-        body: JSON.stringify({user: getUserData()}),
+            'Authorization': getUserData(),
+        }
     })
         .then((response) => {
             if (response.status !== 200) {

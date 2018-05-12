@@ -6,6 +6,9 @@ const app = express();
 const port = 3030;
 app.use(bodyParser());
 
+const cors = require('cors');
+app.use(cors());
+
 app.use('', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
@@ -81,11 +84,11 @@ app.delete('/event', (req, res) => {
 });
 
 //get all events in json format
-app.post('/eventlist', (req, res) => {
+app.get('/eventlist', (req, res) => {
     const today = moment().format('DD-MM-YYYY');
 
     try {
-        EventCalendarModel.find({...req.body, date: today}, function(err, events) {
+        EventCalendarModel.find({user: req.headers.authorization, date: today}, function(err, events) {
             if (err) {
                 throw err;
             }
@@ -99,9 +102,9 @@ app.post('/eventlist', (req, res) => {
     }
 });
 
-app.post('/all', (req, res) => {
+app.get('/all', (req, res) => {
     try {
-        EventCalendarModel.find({...req.body}, function(err, events) {
+        EventCalendarModel.find({user: req.headers.authorization}, function(err, events) {
             if (err) {
                 throw err;
             }

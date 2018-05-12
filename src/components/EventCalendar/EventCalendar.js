@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import EventItem from './components/Event/EventItem';
-import './styles/App.css';
+import EventItem from '../Event/EventItem';
+import '../../styles/App.css';
 
 const timeslots = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '5:00'];
 

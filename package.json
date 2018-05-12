@@ -5,6 +5,7 @@
   "dependencies": {
     "auth0-js": "^9.5.1",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "history": "^4.7.2",
     "moment": "^2.22.1",
@@ -23,8 +24,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "server": "node server.js"
+    "eject": "react-scripts eject"
   }
 }

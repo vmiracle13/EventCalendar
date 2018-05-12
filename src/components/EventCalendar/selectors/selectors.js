@@ -1,5 +1,5 @@
 import moment from 'moment';
-import getDiff from './globals';
+import getDiff from '../../../globals';
 
 const compareStartTime = (a, b) => moment(a.start.slice(-5), 'HH:mm') > moment(b.start.slice(-5), 'HH:mm');
 
