@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
-const atob = require('atob');
 
 const app = express();
 const port = 3030;
@@ -27,8 +26,8 @@ const Schema = mongoose.Schema;
 const eventCalendarSchema = new Schema({
     title: String,
     date: String,
-    duration: Number,
-    start: Number,
+    start: String,
+    end: String,
     user: String
 });
 
@@ -57,10 +56,9 @@ app.post('/event', (req, res) => {
 //delete event
 app.delete('/event', (req, res) => {
     const today = moment().format('DD-MM-YYYY');
-    const newEvent = {...req.body, date: today};
 
     try {
-        EventCalendarModel.find({...newEvent}, function(err, events) {
+        EventCalendarModel.find({...req.body, date: today}, function(err, events) {
             if (err) {
                 throw err;
             }
@@ -87,12 +85,12 @@ app.post('/eventlist', (req, res) => {
     const today = moment().format('DD-MM-YYYY');
 
     try {
-        EventCalendarModel.find({date: today}, function(err, events) {
+        EventCalendarModel.find({...req.body, date: today}, function(err, events) {
             if (err) {
                 throw err;
             }
 
-            res.json(formattedResult(events));
+            res.json(events);
         });
     }
     catch(err) {
@@ -102,10 +100,8 @@ app.post('/eventlist', (req, res) => {
 });
 
 app.post('/all', (req, res) => {
-    const today = moment().format('DD-MM-YYYY');
-
     try {
-        EventCalendarModel.find({...req.body, date: today}, function(err, events) {
+        EventCalendarModel.find({...req.body}, function(err, events) {
             if (err) {
                 throw err;
             }
@@ -130,10 +126,20 @@ app.listen(port, (err) => {
 
 const formattedResult = (arr) => {
     return arr.map( item => {
+        const duration = getDiff(item.start.slice(-5), item.end.slice(-5));
+        const start = getDiff('08:00', item.start.slice(-5));
+
         return {
             title: item.title,
-            start: item.start,
-            duration: item.duration
-        }
+            duration,
+            start
+        };
     });
+};
+
+const getDiff = (a, b) => {
+    const start = moment(a, 'HH:mm');
+    const finish = moment(b, 'HH:mm');
+    const diff = moment.duration(start - finish, "minutes");
+    return (diff.toString().match(/\d+/i) / 1000);
 };

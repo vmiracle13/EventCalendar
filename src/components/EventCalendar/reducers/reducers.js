@@ -11,6 +11,8 @@ import {
     IS_EMPTY_TITLE
 } from './constants';
 
+import generateEventGrid from './selectors';
+
 export const initialState = {
     eventList: [],
     isCreateEventVisible: false,
@@ -38,7 +40,7 @@ export default (state = initialState, action) => {
         case GET_EVENT_LIST: {
             return {
                 ...state,
-                eventList: action.payload,
+                eventList: generateEventGrid(action.payload),
                 isCreateEventVisible: false,
                 allEventList: null
             }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './styles/App.css';
 import moment from 'moment';
-import EventItem from './components/Event/Event';
+import EventItem from './components/Event/EventItem';
+import './styles/App.css';
 
 const timeslots = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '1:00', '1:30', '2:00', '2:30', '3:00', '3:30', '4:00', '4:30', '5:00'];
 
@@ -10,7 +10,7 @@ const startTime = 8;
 const endTime = 17;
 const allTimeslotsMin = (endTime - startTime) * 60;
 
-class App extends Component {
+class EventCalendar extends Component {
     componentDidMount() {
         this.props.getEventList();
     }
@@ -42,7 +42,7 @@ class App extends Component {
 
     validateTitle = (value) => !!value && /\w+/ig.test(value);
 
-    validateTime = (start, end) => end > start && end < '17:00';
+    validateTime = (start, end) => end > start && end < '17:00' && start > '07:59';
 
     render() {
         const {
@@ -121,22 +121,34 @@ class App extends Component {
                             const hours = i % 2 === 0 ? "hours" : "full-time";
 
                             return (
-                                <div className={`timeslot-wrap ${hours}`}>
+                                <div className={`timeslot-wrap ${hours}`} key={i}>
                                     <p className="timeslot">{elem}</p>
                                 </div>
                             );
                         })}
                     </div>
 
-                    {(eventList || []).map(event => {
-                        if (Object.keys(event).length !== 0) {
-                            return <EventItem
-                                allTimeslotsMin={allTimeslotsMin}
-                                event={event}
-                                removeEvent={removeEvent}
-                            />
-                        }
-                    })}
+                    {eventList[0] !== undefined &&
+                        <div>
+                            {(eventList || []).map((col, i, eventList) => {
+                                if (col[0] !== undefined) {
+                                    return col.map( event => {
+                                        const left = 100/eventList.length * i;
+                                        const width = 100/eventList.length;
+                                        const right = 100 - left - width;
+
+                                        return <EventItem
+                                            key={event.title}
+                                            allTimeslotsMin={allTimeslotsMin}
+                                            event={event}
+                                            removeEvent={removeEvent}
+                                            stylesData={ {right, left }}
+                                        />
+                                    });
+                                }
+                            })}
+                        </div>
+                    }
 
                     <button className="add-btn" title="Create event" onClick={openCreateEventBlock}>
                         <i className="fa fa-plus"/>
@@ -159,4 +171,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default EventCalendar;

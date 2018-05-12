@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import App from './App';
+import EventCalendar from './EventCalendar';
 import { openCreateEventBlock,
     closeCreateEventBlock,
     getEventList,
@@ -36,6 +36,6 @@ const mapDispatchToProps = {
     isEmptyTitle
 };
 
-const AppConnector = connect(mapStateToProps, mapDispatchToProps)(App);
+const EventCalendarConnector = connect(mapStateToProps, mapDispatchToProps)(EventCalendar);
 
-export default AppConnector;
+export default EventCalendarConnector;

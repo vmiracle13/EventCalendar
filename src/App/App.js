@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Type from 'prop-types';
 import { connect } from 'react-redux';
-import AppConnector from './../connector';
+import EventCalendarConnector from './../connector';
 
-class Main extends Component {
+class App extends Component {
     componentWillMount() {
         const { location } = this.props;
 
@@ -19,14 +19,14 @@ class Main extends Component {
 
         return (
             <div className="main">
-                <AppConnector context={this.context.auth}/>
+                <EventCalendarConnector context={this.context.auth}/>
             </div>
         );
     }
 }
 
-Main.contextTypes = {
+App.contextTypes = {
     auth: Type.object
 };
 
-export default connect()(Main);
+export default connect()(App);

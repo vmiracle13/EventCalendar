@@ -9,12 +9,16 @@
     flex-direction: column;
     justify-content: center;
     max-width: 200px;
+    box-sizing: border-box;
 }
 
 .event-title {
     margin: 0;
     padding: 0;
     color: #6E9ECF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .remove-btn {
