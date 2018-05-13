@@ -16,3 +16,18 @@ Requirements
  - User should be able to add/remove events from his calendar.
  - User should be able to export his calendar in JSON.
  - User should be able to login and persist his inputs between logins.
+
+
+To get the application working in the development mode it is needed to perform:
+- npm run start;
+- npm run server.
+
+The application will be available with localhost:3000.
+
+
+To get the application working in the production mode it is required to implement the following:
+- npm install -g serve;
+- serve -s build;
+- node server.js from build folder;
+
+The application will be available with localhost:5000.

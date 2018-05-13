@@ -13,6 +13,8 @@ import {
     IS_EMPTY_TITLE
 } from '../constants/constants';
 
+const jwtDecode = require('jwt-decode');
+
 export const openCreateEventBlock = () => {
     return {
         type: OPEN_CREATE_EVENT_BLOCK
@@ -144,6 +146,5 @@ export const getAllEventList = () => (dispatch) => {
 
 const getUserData = () => {
     const token = localStorage.getItem('id_token');
-    const userData = atob(token.split('.')[1]);
-    return JSON.parse(userData).sub.slice(6);
+    return jwtDecode(token).sub.slice(6);
 };

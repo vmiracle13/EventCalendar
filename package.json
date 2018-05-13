@@ -8,6 +8,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
     "moment": "^2.22.1",
     "mongodb": "^3.0.8",
     "mongoose": "^5.0.17",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "server": "node ./server/server.js",
+    "build": "react-scripts build"
   }
 }
